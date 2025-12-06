@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jelajahi keindahan destinasi wisata lokal Indonesia - Pantai, Gunung, Budaya, dan Kuliner">
+    <title>Traveling Destinasi Lokal Indonesia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--bg-light);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            transition: all 0.3s;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1600&q=80') center/cover;
+            animation: zoomIn 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes zoomIn {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.8), rgba(30, 64, 175, 0.8));
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #d97706;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .stats-section {
+            padding: 4rem 0;
+            background: var(--bg-light);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .destinations {
+            padding: 5rem 0;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            color: var(--primary-color);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .destination-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .destination-card.hidden {
+            display: none;
+        }
+
+        .destination-card {
+            cursor: pointer;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .card-image {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .destination-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+            color: var(--white);
+        }
+
+        .card-category {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .card-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+
+        .card-link:hover {
+            gap: 1rem;
+        }
+
+        .testimonials {
+            padding: 5rem 0;
+            background: var(--bg-light);
+        }
+
+        .testimonial-carousel {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .carousel-container {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .testimonial-card {
+            display: none;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-card.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .testimonial-stars {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .author-location {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .carousel-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .carousel-dot.active {
+            background: var(--primary-color);
+            width: 30px;
+            border-radius: 10px;
+        }
+
+        .footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        /* Modal Styles */
+        .destination-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .destination-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: var(--secondary-color);
+            transform: rotate(90deg);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-category {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .modal-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .modal-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 10px;
+        }
+
+        .modal-feature i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .modal-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal-btn-primary {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .modal-btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .modal-btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .modal-btn-secondary:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                flex-direction: column;
+                background: var(--white);
+                padding: 2rem;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                transition: left 0.3s;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-btn {
+                justify-content: center;
+            }
+
+            .modal-content {
+                max-width: 95%;
+                margin: 1rem;
+            }
+
+            .modal-image {
+                height: 250px;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .modal-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p>Memuat Keindahan Indonesia...</p>
+        </div>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-mountain"></i>
+                <span>Explore Indonesia</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link">Beranda</a></li>
+                <li><a href="#destinations" class="nav-link">Destinasi</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimoni</a></li>
+                <li><a href="#contact" class="nav-link">Kontak</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-background"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Jelajahi Keindahan</h1>
+            <h2 class="hero-subtitle">Destinasi Lokal Indonesia</h2>
+            <p class="hero-description">Temukan pesona alam, budaya, dan kuliner yang menakjubkan di berbagai penjuru Nusantara</p>
+            <a href="#destinations" class="btn btn-primary">Mulai Jelajahi</a>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Destinasi</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Wisatawan</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-star"></i></div>
+                    <div class="stat-number">4.8</div>
+                    <div class="stat-label">Rating</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-heart"></i></div>
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Kepuasan</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="destinations" id="destinations">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Destinasi Populer</h2>
+                <p class="section-subtitle">Pilih kategori untuk menemukan destinasi impian Anda</p>
+            </div>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th"></i> Semua
+                </button>
+                <button class="filter-btn" data-filter="pantai">
+                    <i class="fas fa-umbrella-beach"></i> Pantai
+                </button>
+                <button class="filter-btn" data-filter="gunung">
+                    <i class="fas fa-mountain"></i> Gunung
+                </button>
+                <button class="filter-btn" data-filter="budaya">
+                    <i class="fas fa-monument"></i> Budaya
+                </button>
+                <button class="filter-btn" data-filter="kuliner">
+                    <i class="fas fa-utensils"></i> Kuliner
+                </button>
+            </div>
+
+            <div class="destinations-grid" id="destinationsGrid">
+                <div class="destination-card" data-category="pantai">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" alt="Pantai Kuta Bali">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <span class="card-category"><i class="fas fa-umbrella-beach"></i> Pantai</span>
+                                <h3 class="card-title">Pantai Kuta, Bali</h3>
+                                <p class="card-description">Pantai dengan pasir putih yang indah, ombak sempurna untuk berselancar, dan sunset yang memukau.</p>
+                                <a href="#" class="card-link">Pelajari Lebih Lanjut <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-category="gunung">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" alt="Gunung Bromo">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <span class="card-category"><i class="fas fa-mountain"></i> Gunung</span>
+                                <h3 class="card-title">Gunung Bromo, Jawa Timur</h3>
+                                <p class="card-description">Keindahan sunrise di ketinggian dengan pemandangan kawah yang menakjubkan dan lautan pasir.</p>
+                                <a href="#" class="card-link">Pelajari Lebih Lanjut <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-category="budaya">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?w=800&q=80" alt="Candi Borobudur">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <span class="card-category"><i class="fas fa-monument"></i> Budaya</span>
+                                <h3 class="card-title">Candi Borobudur, Jawa Tengah</h3>
+                                <p class="card-description">Warisan budaya dunia UNESCO dengan arsitektur Buddha yang megah dan relief yang menakjubkan.</p>
+                                <a href="#" class="card-link">Pelajari Lebih Lanjut <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-category="pantai">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80" alt="Raja Ampat">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <span class="card-category"><i class="fas fa-umbrella-beach"></i> Pantai</span>
+                                <h3 class="card-title">Raja Ampat, Papua Barat</h3>
+                                <p class="card-description">Surga bawah laut dengan keanekaragaman hayati terbaik di dunia dan pantai eksotis yang memukau.</p>
+                                <a href="#" class="card-link">Pelajari Lebih Lanjut <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-category="gunung">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80" alt="Gunung Rinjani">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <span class="card-category"><i class="fas fa-mountain"></i> Gunung</span>
+                                <h3 class="card-title">Gunung Rinjani, Lombok</h3>
+                                <p class="card-description">Gunung berapi aktif dengan danau kawah Segara Anak yang indah dan pemandangan yang spektakuler.</p>
+                                <a href="#" class="card-link">Pelajari Lebih Lanjut <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-category="kuliner">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80" alt="Kuliner Yogyakarta">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <span class="card-category"><i class="fas fa-utensils"></i> Kuliner</span>
+                                <h3 class="card-title">Kuliner Yogyakarta</h3>
+                                <p class="card-description">Jelajahi kekayaan kuliner tradisional mulai dari gudeg, bakpia, hingga berbagai street food lezat.</p>
+                                <a href="#" class="card-link">Pelajari Lebih Lanjut <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-category="budaya">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80" alt="Ubud Bali">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <span class="card-category"><i class="fas fa-monument"></i> Budaya</span>
+                                <h3 class="card-title">Ubud, Bali</h3>
+                                <p class="card-description">Pusat seni dan budaya Bali dengan sawah terasering, pura-pura indah, dan pasar seni tradisional.</p>
+                                <a href="#" class="card-link">Pelajari Lebih Lanjut <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-category="pantai">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80" alt="Pantai Pink Lombok">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <span class="card-category"><i class="fas fa-umbrella-beach"></i> Pantai</span>
+                                <h3 class="card-title">Pantai Pink, Lombok</h3>
+                                <p class="card-description">Salah satu dari tujuh pantai berpasir pink di dunia dengan air jernih dan terumbu karang yang indah.</p>
+                                <a href="#" class="card-link">Pelajari Lebih Lanjut <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card" data-category="kuliner">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80" alt="Kuliner Padang">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <span class="card-category"><i class="fas fa-utensils"></i> Kuliner</span>
+                                <h3 class="card-title">Kuliner Padang, Sumatera Barat</h3>
+                                <p class="card-description">Nikmati cita rasa pedas dan gurih khas Minang dengan rendang yang terkenal di seluruh dunia.</p>
+                                <a href="#" class="card-link">Pelajari Lebih Lanjut <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Testimoni Wisatawan</h2>
+                <p class="section-subtitle">Pengalaman nyata dari para traveler yang telah menjelajahi Indonesia</p>
+            </div>
+
+            <div class="testimonial-carousel">
+                <div class="carousel-container">
+                    <div class="testimonial-card active">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Pengalaman terbaik dalam hidup saya! Raja Ampat benar-benar surga dunia. Air lautnya yang jernih dan kehidupan bawah lautnya luar biasa. Terima kasih atas rekomendasi destinasinya!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://i.pravatar.cc/150?img=1" alt="Andi Wijaya">
+                            </div>
+                            <div class="author-info">
+                                <div class="author-name">Andi Wijaya</div>
+                                <div class="author-location">Jakarta, Indonesia</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Mendaki Gunung Bromo adalah pengalaman yang tak terlupakan. Sunrise di sana benar-benar magis! Pemandangan lautan pasir dan kawahnya sangat spektakuler. Highly recommended!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://i.pravatar.cc/150?img=5" alt="Siti Nurhaliza">
+                            </div>
+                            <div class="author-info">
+                                <div class="author-name">Siti Nurhaliza</div>
+                                <div class="author-location">Bandung, Indonesia</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Borobudur adalah keajaiban arsitektur yang memukau. Sejarah dan spiritualitasnya sangat terasa. Ditambah dengan sunrise tour yang membuat pengalaman semakin berkesan."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://i.pravatar.cc/150?img=8" alt="Budi Santoso">
+                            </div>
+                            <div class="author-info">
+                                <div class="author-name">Budi Santoso</div>
+                                <div class="author-location">Surabaya, Indonesia</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="prevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="carousel-dots">
+                        <span class="carousel-dot active" data-index="0"></span>
+                        <span class="carousel-dot" data-index="1"></span>
+                        <span class="carousel-dot" data-index="2"></span>
+                    </div>
+                    <button class="carousel-btn" id="nextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-mountain"></i>
+                        <span>Explore Indonesia</span>
+                    </div>
+                    <p class="footer-description">Temukan keindahan Indonesia bersama kami. Jelajahi destinasi terbaik dan ciptakan kenangan tak terlupakan.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Link Cepat</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Beranda</a></li>
+                        <li><a href="#destinations">Destinasi</a></li>
+                        <li><a href="#testimonials">Testimoni</a></li>
+                        <li><a href="#contact">Kontak</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Kategori</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Wisata Pantai</a></li>
+                        <li><a href="#">Wisata Gunung</a></li>
+                        <li><a href="#">Wisata Budaya</a></li>
+                        <li><a href="#">Wisata Kuliner</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Kontak Kami</h3>
+                    <ul class="footer-links footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</li>
+                        <li><i class="fas fa-phone"></i> +62 812-3456-7890</li>
+                        <li><i class="fas fa-envelope"></i> info@exploreindonesia.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Explore Indonesia. All rights reserved. Made with <i class="fas fa-heart"></i> in Indonesia</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Destination Modal -->
+    <div class="destination-modal" id="destinationModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <img class="modal-image" id="modalImage" src="" alt="">
+            <div class="modal-body">
+                <span class="modal-category" id="modalCategory"></span>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <p class="modal-description" id="modalDescription"></p>
+                <div class="modal-features" id="modalFeatures"></div>
+                <div class="modal-actions">
+                    <a href="#" class="modal-btn modal-btn-primary" id="modalBookBtn">
+                        <i class="fas fa-calendar-check"></i> Pesan Sekarang
+                    </a>
+                    <button class="modal-btn modal-btn-secondary" id="modalShareBtn">
+                        <i class="fas fa-share-alt"></i> Bagikan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 1000);
+        });
+
+        // Navigation Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Filter Destinations
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        let destinationCards = document.querySelectorAll('.destination-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                destinationCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.classList.remove('hidden');
+                        card.style.animation = 'fadeInUp 0.5s ease';
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Click on Destination Cards
+        function initDestinationCardClicks() {
+            destinationCards = document.querySelectorAll('.destination-card');
+            
+            destinationCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Don't trigger if clicking on the link inside
+                    if (e.target.closest('.card-link')) {
+                        return;
+                    }
+                    
+                    const modal = document.getElementById('destinationModal');
+                    const modalImage = document.getElementById('modalImage');
+                    const modalCategory = document.getElementById('modalCategory');
+                    const modalTitle = document.getElementById('modalTitle');
+                    const modalDescription = document.getElementById('modalDescription');
+                    const modalFeatures = document.getElementById('modalFeatures');
+                    
+                    // Get card data
+                    const cardImage = this.querySelector('.card-image img');
+                    const cardCategory = this.querySelector('.card-category');
+                    const cardTitle = this.querySelector('.card-title');
+                    const cardDesc = this.querySelector('.card-description');
+                    const category = this.getAttribute('data-category');
+                    
+                    // Set modal content
+                    modalImage.src = cardImage.src;
+                    modalImage.alt = cardImage.alt;
+                    modalCategory.innerHTML = cardCategory.innerHTML;
+                    modalTitle.textContent = cardTitle.textContent;
+                    modalDescription.textContent = cardDesc.textContent;
+                    
+                    // Set features based on category
+                    modalFeatures.innerHTML = '';
+                    const features = getFeaturesByCategory(category);
+                    features.forEach(feature => {
+                        const featureDiv = document.createElement('div');
+                        featureDiv.className = 'modal-feature';
+                        featureDiv.innerHTML = `<i class="${feature.icon}"></i><span>${feature.text}</span>`;
+                        modalFeatures.appendChild(featureDiv);
+                    });
+                    
+                    // Show modal
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+        }
+
+        // Initialize destination card clicks
+        initDestinationCardClicks();
+
+        // Get features by category
+        function getFeaturesByCategory(category) {
+            const features = {
+                pantai: [
+                    { icon: 'fas fa-umbrella-beach', text: 'Aktivitas Pantai' },
+                    { icon: 'fas fa-swimmer', text: 'Berenang & Snorkeling' },
+                    { icon: 'fas fa-sun', text: 'Sunset View' },
+                    { icon: 'fas fa-camera', text: 'Spot Foto Menarik' }
+                ],
+                gunung: [
+                    { icon: 'fas fa-mountain', text: 'Pendakian' },
+                    { icon: 'fas fa-sunrise', text: 'Sunrise View' },
+                    { icon: 'fas fa-campground', text: 'Camping Area' },
+                    { icon: 'fas fa-hiking', text: 'Trekking' }
+                ],
+                budaya: [
+                    { icon: 'fas fa-monument', text: 'Situs Bersejarah' },
+                    { icon: 'fas fa-theater-masks', text: 'Budaya Lokal' },
+                    { icon: 'fas fa-camera', text: 'Spot Foto' },
+                    { icon: 'fas fa-book', text: 'Edukasi Sejarah' }
+                ],
+                kuliner: [
+                    { icon: 'fas fa-utensils', text: 'Makanan Tradisional' },
+                    { icon: 'fas fa-star', text: 'Cita Rasa Autentik' },
+                    { icon: 'fas fa-store', text: 'Warung & Restoran' },
+                    { icon: 'fas fa-heart', text: 'Favorit Wisatawan' }
+                ]
+            };
+            
+            return features[category] || features.pantai;
+        }
+
+        // Close modal
+        const modalClose = document.getElementById('modalClose');
+        const destinationModal = document.getElementById('destinationModal');
+
+        modalClose.addEventListener('click', () => {
+            destinationModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside
+        destinationModal.addEventListener('click', (e) => {
+            if (e.target === destinationModal) {
+                destinationModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close modal with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && destinationModal.classList.contains('active')) {
+                destinationModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Share button functionality
+        document.getElementById('modalShareBtn').addEventListener('click', () => {
+            const title = document.getElementById('modalTitle').textContent;
+            const url = window.location.href;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: `Cek destinasi ${title} di Explore Indonesia!`,
+                    url: url
+                }).catch(() => {
+                    // User cancelled or error occurred
+                });
+            } else {
+                // Fallback: copy to clipboard
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(url).then(() => {
+                        alert('Link berhasil disalin ke clipboard!');
+                    }).catch(() => {
+                        alert('Gagal menyalin link. Silakan salin manual: ' + url);
+                    });
+                } else {
+                    alert('Link: ' + url);
+                }
+            }
+        });
+
+        // Testimonial Carousel
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        const carouselDots = document.querySelectorAll('.carousel-dot');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentTestimonial = 0;
+
+        function showTestimonial(index) {
+            testimonialCards.forEach((card, i) => {
+                card.classList.remove('active');
+                if (i === index) {
+                    card.classList.add('active');
+                }
+            });
+
+            carouselDots.forEach((dot, i) => {
+                dot.classList.remove('active');
+                if (i === index) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial - 1 + testimonialCards.length) % testimonialCards.length;
+            showTestimonial(currentTestimonial);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+            showTestimonial(currentTestimonial);
+        });
+
+        carouselDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentTestimonial = index;
+                showTestimonial(currentTestimonial);
+            });
+        });
+
+        // Auto-play carousel
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+            showTestimonial(currentTestimonial);
+        }, 5000);
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Navbar background on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.destination-card, .stat-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
